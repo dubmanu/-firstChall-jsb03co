@@ -28,13 +28,18 @@ class Person {
 //    "studentList" mencionado anteriormente.
 class Teacher extends Person{
   constructor(nombre, edad, genero, subject, studentsList){
-    super(nombre);
-    super(edad);
-    super(genero);
+    super(nombre, edad, genero);
     this.subject = subject;
     this.studentsList = studentsList;
   }
+
+  static createTeacher(nom, eda, gen, sub){
+    return nom.map((name, index) => {
+      return new Teacher(name, eda[index], gen[index], sub[index]);
+    });
+  }
   static asignar(teacherId, studenId){
+    
 
   }
 }
@@ -45,16 +50,19 @@ class Teacher extends Person{
 //    y "group", y un método que permita registrar un nuevo estudiante.
 class Student extends Person {
   constructor(nombre, edad, genero, course, group){
-    super(nombre);
-    super(edad);
-    super(genero);
+    super(nombre, edad, genero);
     this.course = course;
     this.group = group;
   }
-static registrar(studentId){
+  static registrar(nom, eda, gen, cou, gro){
+    return nom.map((name, index) => {
+      return new Student(name, eda[index], gen[index], cou[index], gro[index]);
+    });
+  }
+
 
 }
-}
+
 
 
 //   - El objetivo final es mostrar por pantalla la lista de profesores
@@ -62,3 +70,17 @@ static registrar(studentId){
 //    asignados.
 //   - Deben figurar un mí­nimo de tres profesores. Cada profesor debe
 //    tener asignado un mí­nimo de dos alumnos.
+const stuNames = ["Alba", "Berto", "Carmen", "Damian", "Diana", "Fernando"];
+const stuAge = [32, 17, 19, 45, 18, 22];
+const stuGen = ["f", "m", "f", "m", "f", "f", "m"];
+const stuCourse = ["js", "Cob", "C", "Lin", "Win", "Dos"];
+const stuGroup = ["01", "02", "03", "01", "02", "03"];
+const profNames = ["Juana", "Manuel", "Rosa"];
+const profAge = [32, 37, 19];
+const profGen = ["f", "m", "f"];
+const profSubject = ["Pas", "Del", "Uni"];
+
+const allProf = Teacher.createTeacher(profNames, profAge, profGen, profSubject);
+const allStud = Student.registrar(stuNames,stuAge,stuGen,stuCourse,stuCourse);
+console.log(allProf);
+console.log(allStud);
