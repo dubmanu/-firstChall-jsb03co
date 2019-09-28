@@ -35,11 +35,21 @@ class Teacher extends Person{
 
   static createTeacher(nom, eda, gen, sub){
     return nom.map((name, index) => {
-      return new Teacher(name, eda[index], gen[index], sub[index]);
+      return new Teacher(name, eda[index], gen[index], sub[index], []);
     });
   }
   static asignar(teacherId, studenId){
-    
+    teacherId.studentsList = [...teacherId.studentsList, studenId];
+  }
+  static showTeacher(teacherId){
+    console.log("Profesor Edad Genero Asignatura");
+    for (let item of teacherId){
+      console.log ("*", item.nombre, item.edad, item.genero, item.subject );
+      console.log("-Alumno Edad Genero Curso Grupo");
+      for (let item2 of item.studentsList){
+        console.log("-", item2.nombre, item2.edad, item2.genero, item2.course, item2.group);
+      }
+    }
 
   }
 }
@@ -59,8 +69,6 @@ class Student extends Person {
       return new Student(name, eda[index], gen[index], cou[index], gro[index]);
     });
   }
-
-
 }
 
 
@@ -81,6 +89,14 @@ const profGen = ["f", "m", "f"];
 const profSubject = ["Pas", "Del", "Uni"];
 
 const allProf = Teacher.createTeacher(profNames, profAge, profGen, profSubject);
-const allStud = Student.registrar(stuNames,stuAge,stuGen,stuCourse,stuCourse);
-console.log(allProf);
-console.log(allStud);
+const allStud = Student.registrar(stuNames,stuAge,stuGen,stuCourse,stuGroup);
+// console.log(allProf);
+// console.log(allStud);
+for(let item of allProf){
+  for(let item2 of allStud){
+    Teacher.asignar(item, item2);
+  }
+}
+
+
+Teacher.showTeacher(allProf);
