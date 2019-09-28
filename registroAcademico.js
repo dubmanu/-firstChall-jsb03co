@@ -1,6 +1,5 @@
 'use strict';
 
-
 // * * * * * * * * * * * * * * * * * * * * * * *
 // *  2. R E G I S T R O   A C A D Ã‰ M I C O   *
 // * * * * * * * * * * * * * * * * * * * * * * *
@@ -32,7 +31,6 @@ class Teacher extends Person{
     this.subject = subject;
     this.studentsList = studentsList;
   }
-
   static createTeacher(nom, eda, gen, sub){
     return nom.map((name, index) => {
       return new Teacher(name, eda[index], gen[index], sub[index], []);
@@ -42,18 +40,16 @@ class Teacher extends Person{
     teacherId.studentsList = [...teacherId.studentsList, studenId];
   }
   static showTeacher(teacherId){
-    console.log("Profesor Edad Genero Asignatura");
     for (let item of teacherId){
-      console.log ("*", item.nombre, item.edad, item.genero, item.subject );
-      console.log("-Alumno Edad Genero Curso Grupo");
+      console.log("Profesor Edad Genero Asignatura");
+      console.log (`${item.nombre}     ${item.edad}    ${item.genero}     ${item.subject}`);
+      console.log("-Alumnos Edad Genero Curso Grupo");
       for (let item2 of item.studentsList){
-        console.log("-", item2.nombre, item2.edad, item2.genero, item2.course, item2.group);
+        console.log(`-${item2.nombre}    ${item2.edad}  ${item2.genero}      ${item2.course}    ${item2.group}`);
       }
     }
-
   }
 }
-
 
 //   - Crea la clase "Student". Esta clase debe heredar de "Person",
 //    y debe incluÃ­r, a mayores, las propiedades: "course" 
@@ -71,8 +67,6 @@ class Student extends Person {
   }
 }
 
-
-
 //   - El objetivo final es mostrar por pantalla la lista de profesores
 //    junto a todas sus propiedades, entre ellas, los alumnos que tiene
 //    asignados.
@@ -87,16 +81,14 @@ const profNames = ["Juana", "Manuel", "Rosa"];
 const profAge = [32, 37, 19];
 const profGen = ["f", "m", "f"];
 const profSubject = ["Pas", "Del", "Uni"];
-
 const allProf = Teacher.createTeacher(profNames, profAge, profGen, profSubject);
 const allStud = Student.registrar(stuNames,stuAge,stuGen,stuCourse,stuGroup);
-// console.log(allProf);
-// console.log(allStud);
-for(let item of allProf){
-  for(let item2 of allStud){
-    Teacher.asignar(item, item2);
+//se asignan dos alumnos por profesor
+for(let item of allStud){
+  for(let item2 of allProf){
+    if (item2.studentsList.length < 2){
+      Teacher.asignar(item2, item);
+    }    
   }
 }
-
-
 Teacher.showTeacher(allProf);
